@@ -2,7 +2,8 @@
 
 const config = {
   apiOrigins: {
-    production: 'https://ga-wdi-boston.herokuapp.com'
+    production: 'http://tic-tac-toe.wdibos.com',
+    development: 'http://tic-tac-toe.wdibos.com'
   }
 }
 
