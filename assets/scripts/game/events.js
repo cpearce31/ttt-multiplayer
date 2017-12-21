@@ -6,8 +6,8 @@ const store = require('../store')
 const logic = require('./logic')
 
 const onClickCell = function (event) {
-  // if the game isn't active, do nothing
-  if (store.game && store.game.over) {
+  // if the game isn't active or the cell is full, do nothing
+  if ((store.game && store.game.over) || $(event.target).text()) {
     return
   }
 
