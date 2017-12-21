@@ -2,13 +2,6 @@
 
 const store = require('../store')
 
-const initGame = () => {
-  store.game = {
-    cells: ['', '', '', '', '', '', '', '', ''],
-    over: false
-  }
-}
-
 const turn = () => {
   return store.game.cells.filter(cell => !!cell).length % 2 === 0 ? 'x' : 'o'
 }
