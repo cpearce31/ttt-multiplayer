@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html>
-    <head>
-      <title>Example</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <title>Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <!-- Do not add `link` tags unless you know what you are doing -->
-      <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <!-- Do not add `link` tags unless you know what you are doing -->
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 
-      <!-- Do not add `script` tags unless you know what you are doing -->
-      <script src="public/vendor.js" type="text/javascript" charset="utf-8" defer></script>
-      <script src="public/application.js" type="text/javascript" charset="utf-8" defer></script>
-    </head>
-    <body class="container-fluid">
+    <!-- Do not add `script` tags unless you know what you are doing -->
+    <script src="public/vendor.js" type="text/javascript" charset="utf-8" defer></script>
+    <script src="public/application.js" type="text/javascript" charset="utf-8" defer></script>
+  </head>
+  <body class="container-fluid">
+    <div id="auth">
       <p id="message"></p>
 
       <form id="sign-up">
@@ -48,5 +49,20 @@
           <input type="submit" name="submit" value="Change Password!">
         </fieldset>
       </form>
-    </body>
+    </div>
+    <div id="game">
+      <div id="board">
+        <span data-index="0" class="cell"></span>
+        <span data-index="1" class="cell"></span>
+        <span data-index="2" class="cell"></span>
+        <span data-index="3" class="cell"></span>
+        <span data-index="4" class="cell"></span>
+        <span data-index="5" class="cell"></span>
+        <span data-index="6" class="cell"></span>
+        <span data-index="7" class="cell"></span>
+        <span data-index="8" class="cell"></span>
+      </div>
+      <button id="reset"></button>
+    </div>
+  </body>
 </html>
