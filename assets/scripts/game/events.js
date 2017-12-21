@@ -19,7 +19,6 @@ const onClickCell = function (event) {
     return
   }
 
-  console.log(typeof store.game.cells[0])
   let game
   if (store.game) {
     // if the game already exists, wrap it in a promise so that .then will work
@@ -38,7 +37,6 @@ const onClickCell = function (event) {
       const value = logic.turn()
 
       store.game.cells[index] = value
-      console.log(typeof store.game.cells[0])
 
       // logic.winner returns 'x', 'o', or null so coerce to a bool
       const over = !!logic.winner() || logic.tie()
@@ -59,6 +57,7 @@ const onClickCell = function (event) {
 }
 
 const onReset = function () {
+  // if `you` was set from a multiplayer game, clear it
   store.you = null
   api.create()
     .then(ui.createGameSuccess)
@@ -66,6 +65,7 @@ const onReset = function () {
 }
 
 const onJoin = function (event) {
+  // if you're joining, you're player 'o'
   store.you = 'o'
 
   event.preventDefault()
@@ -73,37 +73,43 @@ const onJoin = function (event) {
 
   store.game = { id }
 
+  // the API expects a PATCH with a blank object as a body to "join" a game
   api.update({})
   .then(data => {
     store.game = data.game
-    console.log(typeof store.game.cells[0])
     ui.renderGame()
+
+    // subscribe to updates from the game you just joined
     watchGame(id)
   })
 }
 
 const onCreateMultiplayer = () => {
+  // if you're hosting, you're player 'x'
   store.you = 'x'
+
   api.create()
     .then(data => {
       store.game = data.game
-      console.log(typeof store.game.cells[0])
       ui.renderGame()
       $('#message').text(`The ID is ${store.game.id}`)
+
+      // subscribe to the game you just created
       watchGame(store.game.id)
     })
 }
 
 const watchGame = id => {
+  // this is the object that will recieve `change` events when the other player
+  // makes a move
   const gameWatcher = resourceWatcher(`${config.apiOrigin}/games/${id}/watch`, {
     Authorization: 'Token token=' + store.user.token
   })
 
+  // when a change event comes in, update the DOM to match the changed board
   gameWatcher.on('change', data => {
-    console.log('data from change', data)
     if (data.game && data.game.cells) {
       store.game.cells = data.game.cells[1]
-      console.log('store.game:', store.game)
       ui.renderGame()
     }
   })
