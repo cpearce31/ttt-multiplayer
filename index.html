@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Do not add `link` tags unless you know what you are doing -->
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
+    <!-- Do not add `script` tags unless you know what you are doing -->
+    <script src="public/vendor.js" type="text/javascript" charset="utf-8" defer></script>
+    <script src="public/application.js" type="text/javascript" charset="utf-8" defer></script>
+  </head>
+  <body class="container-fluid">
+    <div id="auth">
+      <p id="message"></p>
+
+      <form id="sign-up">
+        <fieldset>
+          <legend>Sign up!</legend>
+          <input type="text" name="credentials[email]" placeholder="Email">
+          <input type="password" name="credentials[password]" placeholder="Password">
+          <input type="password" name="credentials[password_confirmation]" placeholder="Confirm Password">
+          <input type="submit" name="submit" value="Sign up!">
+        </fieldset>
+      </form>
+
+      <form id="sign-in">
+        <fieldset>
+          <legend>Sign in!</legend>
+          <input type="text" name="credentials[email]" placeholder="Email">
+          <input type="password" name="credentials[password]" placeholder="Password">
+          <input type="submit" name="submit" value="Sign in!">
+        </fieldset>
+      </form>
+
+      <form id="sign-out">
+        <fieldset>
+          <legend>Sign Out!</legend>
+          <input type="submit" name="submit" value="Sign out!">
+        </fieldset>
+      </form>
+
+      <form id="change-password">
+        <fieldset>
+          <legend>Change Password!</legend>
+          <input type="text" name="passwords[old]" placeholder="Old Password">
+          <input type="password" name="passwords[new]" placeholder="New Password">
+          <input type="submit" name="submit" value="Change Password!">
+        </fieldset>
+      </form>
+    </div>
+    <div id="game">
+      <div id="board">
+        <span data-index="0" class="cell"></span>
+        <span data-index="1" class="cell"></span>
+        <span data-index="2" class="cell"></span>
+        <span data-index="3" class="cell"></span>
+        <span data-index="4" class="cell"></span>
+        <span data-index="5" class="cell"></span>
+        <span data-index="6" class="cell"></span>
+        <span data-index="7" class="cell"></span>
+        <span data-index="8" class="cell"></span>
+      </div>
+      <button id="reset">Reset</button>
+      <button id="create-multiplayer">Create multiplayer game</button>
+      <form id="join">
+        <legend>Join multiplayer game</legend>
+        <input type="text" name="id" placeholder="Game ID">
+        <button type="submit">Join</button>
+      </form>
+    </div>
+  </body>
+</html>
