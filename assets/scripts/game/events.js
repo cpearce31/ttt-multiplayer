@@ -6,20 +6,46 @@ const store = require('../store')
 const logic = require('./logic')
 
 const onClickCell = function (event) {
-  if (store.game.over) {
+  // if the game isn't active, do nothing
+  if (store.game && store.game.over) {
     return
   }
 
-  const index = event.target.dataset.id
-  const symbol = logic.turn()
+  let game
+  if (store.game) {
+    // if the game already exists, wrap it in a promise so that .then will work
+    game = Promise.resolve({ game: store.game })
+  } else {
+    // if there isn't a game, create one
+    game = api.create()
+  }
 
-  store.game.cells[index] = symbol
+  // pass the game data to ui.createGameSuccess
+  game
+    .then(ui.createGameSuccess)
+    .then(game => {
+      // pull the index of the clicked cell from its `data-index`
+      const index = event.target.dataset.index
+      const value = logic.turn()
 
-  const over = !!logic.winner() || logic.tie()
+      store.game.cells[index] = value
 
-  api.update(index, symbol, over)
-    .then(ui.onUpdateSuccess)
-    .catch(ui.onUpdateFail)
+      // logic.winner returns 'x', 'o', or null so coerce to a bool
+      const over = !!logic.winner() || logic.tie()
+
+      return {
+        game: {
+          cell: {
+            index,
+            value
+          },
+          over
+        }
+      }
+    })
+    .then(api.update)
+    .then(ui.updateGameSuccess)
+    .catch(ui.updateGameFail)
 }
 
 const onReset = function () {

@@ -45,7 +45,6 @@ const winner = () => {
 }
 
 module.exports = {
-  initGame,
   turn,
   winner,
   tie
