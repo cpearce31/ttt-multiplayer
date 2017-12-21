@@ -4,16 +4,18 @@ const store = require('../store')
 const logic = require('./logic')
 
 // translate the `store.game.cells` array into 'x' and 'o's in the DOM
-const _renderGame = () => {
+const renderGame = () => {
   $('.cell').each(function (i, el) {
     $(el).text(store.game.cells[el.dataset.index])
   })
+  console.log(typeof store.game.cells[0])
 }
 
 const createGameSuccess = data => {
   $('#message').text('')
   store.game = data.game
-  _renderGame()
+  renderGame()
+  console.log(typeof store.game.cells[0])
 }
 
 const createGameFail = err => console.error(err)
@@ -22,7 +24,7 @@ const updateGameSuccess = data => {
   $('#message').text('')
   store.game = data.game
 
-  _renderGame()
+  renderGame()
 
   if (logic.winner()) {
     $('#message').text(`Player ${logic.winner()} won!`)
@@ -37,5 +39,6 @@ module.exports = {
   createGameSuccess,
   createGameFail,
   updateGameSuccess,
-  updateGameFail
+  updateGameFail,
+  renderGame
 }
