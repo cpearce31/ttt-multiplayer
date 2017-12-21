@@ -13,6 +13,8 @@ const turn = () => {
   return store.game.cells.filter(cell => cell === 'x').length % 2 ? 'x' : 'o'
 }
 
+const tie = () => store.game.cells.filter(cell => cell === '').length === 0
+
 // return true if a is a superset of b
 const _superset = (a, b) => b.every(element => a.indexOf(element) !== -1)
 
@@ -50,5 +52,6 @@ const winner = () => {
 module.exports = {
   initGame,
   turn,
-  winner
+  winner,
+  tie
 }
